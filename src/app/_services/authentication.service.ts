@@ -91,4 +91,8 @@ export class AuthenticationService {
       sessionStorage.clear();
       this.signedUserSubject.next(null);
     }
+
+    userEdit(){
+      //implement EDIT stuff
+    }
 }

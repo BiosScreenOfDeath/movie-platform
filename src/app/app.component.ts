@@ -11,6 +11,7 @@ import { AuthenticationService } from './_services/authentication.service';
 export class AppComponent{
   title = 'angular-academy-movie-platform';
   signedUser: User;
+  toggleOptions = false;
 
   constructor(
     private router: Router,
@@ -40,5 +41,18 @@ export class AppComponent{
     this.authenticate.logout();
     this.router.navigate(['/login']);
     this.signedUser = null;
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
+  }
+
+  showOptions(){
+    this.toggleOptions = !this.toggleOptions;
+    console.log("User options tog.")
+  }
+
+  userOptions(){
+    this.router.navigate(['/edit']);
   }
 }

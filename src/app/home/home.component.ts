@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  homeUser: User;
 
   constructor(private router: Router,
     private authenticate: AuthenticationService) {
@@ -19,6 +22,8 @@ export class HomeComponent implements OnInit {
          console.log("Session stored values ON@home.");
       }
       this.authenticate.toggleStorage();
+
+      this.authenticate.signedUser$.subscribe(user => this.homeUser = user);
   }
 
   ngOnInit(): void {}
