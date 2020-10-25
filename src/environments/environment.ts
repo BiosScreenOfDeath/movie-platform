@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   config: {
-    api: 'http://localhost:4242?apiKey=coffee'
+    api: 'http://localhost:4242'
   }
 };
 

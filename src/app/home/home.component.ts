@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private router: Router,
+    private authenticate: AuthenticationService) {
+      if(localStorage.getItem("on") == "1"){
+         this.authenticate.keepMeLoggedIn = true;
+         console.log("Locally stored values ON@home.");
+      } else {
+         this.authenticate.keepMeLoggedIn = false;
+         console.log("Session stored values ON@home.");
+      }
+      this.authenticate.toggleStorage();
   }
 
+  ngOnInit(): void {}
 }

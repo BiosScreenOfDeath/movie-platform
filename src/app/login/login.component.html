@@ -1,2 +1,19 @@
+<p>Movie platform</p>
 <!-- <button><a href="http://localhost:4242/api-docs/#/">API DOCS</a></button> -->
 
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label>Username</label>
+    <input type='text' formControlName='username' required/>
+    <br>
+
+    <label>Password</label>
+    <input type='password' formControlName='password' required/>
+    <br>
+
+    <button type='submit' [disabled]="!loginForm.valid">Login</button>
+    <button routerLink='/register'>Register</button>
+    <br>
+
+    <label>Keep me logged in</label>
+    <input type="checkbox" (change)="toggleKeepMeLoggedIn()">
+</form>

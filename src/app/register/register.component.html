@@ -1,1 +1,22 @@
-<p>register works!</p>
+<p>Sign up</p>
+
+<form [formGroup]="registerForm">
+    <label>First name</label>
+    <input class="form-control" type='text' formControlName='firstName' >
+    <br>
+
+    <label>Last name</label>
+    <input class="form-control" type='text' formControlName='lastName' >
+    <br>
+
+    <label>Username</label>
+    <input class="form-control" type='text' formControlName='username' >
+    <br>
+
+    <label>Password</label>
+    <input class="form-control" type='password' formControlName='password' >
+    <br>
+
+    <button type="submit" [disabled]="!registerForm.valid" (click)="registerUser()" routerLink="/login">Register</button>
+    <button routerLink="/login">Back</button>
+</form>
