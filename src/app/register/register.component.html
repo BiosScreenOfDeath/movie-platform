@@ -17,6 +17,10 @@
     <input class="form-control" type='password' formControlName='password' >
     <br>
 
+    <label>Confirm password</label>
+    <input class="form-control" type='password' formControlName='password' >
+    <br>
+
     <button type="submit" [disabled]="!registerForm.valid" (click)="registerUser()" routerLink="/login">Register</button>
     <button routerLink="/login">Back</button>
 </form>

@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BackendInterceptorInterceptor } from './_services/backend-interceptor.interceptor';
 import { EditComponent } from './edit/edit.component';
+import { JwtInterceptor } from './_services/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EditComponent } from './edit/edit.component';
     HttpClientModule
   ],
   providers: [
-    //{ provide: HTTP_INTERCEPTORS, useClass: BackendInterceptorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BackendInterceptorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

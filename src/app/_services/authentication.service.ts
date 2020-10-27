@@ -12,6 +12,8 @@ export class AuthenticationService {
   private signedUserSubject: BehaviorSubject<User>;
   public signedUser$: Observable<User>;
   public keepMeLoggedIn = false;
+  private toggleOptions = false;
+  public apiKey: string;
 
   constructor(private http: HttpClient) {
     if(localStorage.getItem('on') == "1"){
@@ -22,10 +24,6 @@ export class AuthenticationService {
   public get signedUserValue(): User {
     return this.signedUserSubject.value;
   }
-
-  public set signedUserValue(user: User){
-    this.signedUserValue = user;
-  } 
 
   //Optimize a bit 
   toggleStorage(){
@@ -71,6 +69,7 @@ export class AuthenticationService {
         "password": password
       })
       .pipe(map((user) => {
+        this.apiKey = user.jwt;
         if(this.keepMeLoggedIn == true){
           localStorage.setItem('signedUser', JSON.stringify(user.user));  
         } else {
@@ -92,7 +91,27 @@ export class AuthenticationService {
       this.signedUserSubject.next(null);
     }
 
-    userEdit(){
-      //implement EDIT stuff
+    showOptions(){
+      this.toggleOptions = !this.toggleOptions;
+      console.log("User options tog, "+this.toggleOptions);
+    }
+
+
+    // ADD THE HEADERS RIGHT, GET THE DATA, GET ROLLING
+    userInfo(){
+      console.log("Attempting to get user info.")
+      return this.http.get<any>(`${environment.config.api}/users/details`);
+    }
+
+    userEdit(user: any){
+      console.log("@userEdit - username: "+user.username);
+      console.log("Attempting to get user info.")
+      return this.http.put<User>(`${environment.config.api}/users/`, {
+        "firstname": user.firstname,
+        "lastname": user.lastname,
+        "username": user.username,
+        "password": user.password
+      })
+      .subscribe(data => console.log(data));
     }
 }
