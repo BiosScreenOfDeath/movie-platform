@@ -1,0 +1,24 @@
+<h2>Movie list</h2>
+<br>
+
+<form [formGroup]="addMovieForm">
+    <label>Add movie &nbsp;</label>
+    <input type="text" #addMovieTitle formControlName="addMovieTitle" placeholder="Enter movie title" required>
+    <input type="text" #addMovieDescription formControlName="addMovieDescription" placeholder="Enter movie description" required>
+    <input type="text" #addMovieDate formControlName="addMovieDate" placeholder="Enter movie's release" required>
+    <button 
+    [disabled]="!addMovieForm.valid"
+    (click)="addEntry(addMovieTitle.value,addMovieDescription.value,addMovieDate.value)">Add</button>
+    <br>
+</form>
+
+<label>Movie search &nbsp;</label>
+<input type="text" #searchTitle placeholder="Search movie">
+<button (click)="searchMovie(searchTitle.value)">Search</button>
+<br>
+
+<ul *ngIf="this.movieList">
+    <li *ngFor="let movie of this.movieList.value">
+        {{movie.title}} &nbsp; {{movie.description}} &nbsp; {{movie.dateReleased}} 
+    </li>
+</ul>

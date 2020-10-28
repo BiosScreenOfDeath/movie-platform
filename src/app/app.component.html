@@ -1,7 +1,7 @@
 <nav  class="navbar navbar-expand navbar-dark bg-dark" *ngIf="signedUser">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" >All Movies</a>
-        <a class="nav-item nav-link" >Favorites</a>
+        <a class="nav-item nav-link" style="cursor: pointer;" (click)="showMovies()" >All Movies</a>
+        <a class="nav-item nav-link" style="cursor: pointer;" (click)="showFavorites()" >Favorites</a>
         <a class="nav-item nav-link" style="cursor: pointer;" (click)="goHome()">Home</a>
         <a class="nav-item" (click)="this.authenticate.showOptions()"><img style="cursor: pointer;width: 45px; height: 45px;" src="/assets/yes.jpg" class="rounded-circle"></a>
         <ul *ngIf="this.authenticate.toggleOptions">

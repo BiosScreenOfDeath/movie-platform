@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -113,5 +114,20 @@ export class AuthenticationService {
         "password": user.password
       })
       .subscribe(data => console.log(data));
+    }
+
+    addMovie(title: string, description: string, date: string){
+      console.log(`POSTing ${title}/${description}/${date}`)
+      return this.http.post<any>(`${environment.config.api}/movies`, {
+        "title": title,
+        "description": description,
+        "dateReleased": new DatePipe('en').transform(date, 'yyyy-MM-ddTHH:mm:ssZ')
+      })
+      .subscribe(movie => console.log("POSTed movie: "+movie.title));
+    }
+
+    getMovies(){
+      console.log("Attempting to get all movies.")
+      return this.http.get<any>(`${environment.config.api}/movies`);
     }
 }

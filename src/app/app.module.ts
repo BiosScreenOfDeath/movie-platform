@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BackendInterceptorInterceptor } from './_services/backend-interceptor.interceptor';
 import { EditComponent } from './edit/edit.component';
 import { JwtInterceptor } from './_services/jwt.interceptor';
+import { MoviesModule } from './movies/movies.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,14 @@ import { JwtInterceptor } from './_services/jwt.interceptor';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    EditComponent
+    EditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MoviesModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BackendInterceptorInterceptor, multi: true },

@@ -50,4 +50,14 @@ export class AppComponent{
     console.log("Accessing Edit page.");
     this.router.navigate(['/edit']);
   }
+
+  showMovies(){
+    console.log("Entering All Movies.");
+    this.router.navigate(['/all-movies']);
+  }
+
+  showFavorites(){
+    console.log("Entering Favorite Movies.");
+    this.router.navigate(['/favorite-movies']);
+  }
 }
