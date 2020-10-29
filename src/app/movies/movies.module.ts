@@ -4,12 +4,14 @@ import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.compo
 import { AllMoviesComponent } from './all-movies/all-movies.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [FavoriteMoviesComponent, AllMoviesComponent, MovieDetailsComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SearchPipeModule
   ],
   exports: [FavoriteMoviesComponent, AllMoviesComponent, MovieDetailsComponent]
 })

@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
-import { FavoriteMovie } from '../_models/favorite-movie';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,8 @@ import { FavoriteMovie } from '../_models/favorite-movie';
 export class AuthenticationService {
   private signedUserSubject: BehaviorSubject<User>;
   public signedUser$: Observable<User>;
+  private userJWTSubject: BehaviorSubject<User>;
+  public userJWT$: Observable<User>;
   public keepMeLoggedIn = false;
   private toggleOptions = false;
   public apiKey: string;
@@ -27,28 +28,39 @@ export class AuthenticationService {
     return this.signedUserSubject.value;
   }
 
+  public get userJWTValue(): User {
+    return this.userJWTSubject.value;
+  }
+
   //Optimize a bit 
   toggleStorage(){
     if(this.keepMeLoggedIn){
-      console.log("Local login!");
+      console.log("Storage set for Local login!");
       localStorage.setItem("on", "1");
       localStorage.setItem("off", "0");
       this.signedUserSubject = new BehaviorSubject<User>(JSON
         .parse(localStorage.getItem('signedUser')));
+      this.userJWTSubject = new BehaviorSubject<User>(JSON
+        .parse(localStorage.getItem('userJWT')));
 
       sessionStorage.removeItem('signedUser');
+      sessionStorage.removeItem('userJWT');
       sessionStorage.clear();
     } else {
-      console.log("Session login!");
+      console.log("Storage set for Session login!");
       localStorage.setItem("off", "1");
       localStorage.setItem("on", "0");
       this.signedUserSubject = new BehaviorSubject<User>(JSON
         .parse(sessionStorage.getItem('signedUser')));
+      this.userJWTSubject = new BehaviorSubject<User>(JSON
+        .parse(sessionStorage.getItem('userJWT')));
 
       localStorage.removeItem('signedUser');
+      localStorage.removeItem('userJWT');
       localStorage.clear();
     }
     this.signedUser$ = this.signedUserSubject.asObservable();
+    this.userJWT$ = this.userJWTSubject.asObservable();
   }
 
   register(firstName: string, 
@@ -73,22 +85,26 @@ export class AuthenticationService {
       .pipe(map((user) => {
         this.apiKey = user.jwt;
         if(this.keepMeLoggedIn == true){
-          localStorage.setItem('signedUser', JSON.stringify(user.user));  
+          localStorage.setItem('signedUser', JSON.stringify(user.user));
+          localStorage.setItem('userJWT', JSON.stringify(user.jwt));  
         } else {
           sessionStorage.setItem('signedUser', JSON.stringify(user.user));
+          sessionStorage.setItem('userJWT', JSON.stringify(user.jwt));
         }
-        
+        this.toggleStorage();
         console.log("Logging in user: "+user.user.username);
         this.signedUserSubject.next(user.user);
-        this.toggleStorage();
+        this.userJWTSubject.next(user.jwt);
         console.log(`User ${user.user.username} successfully signed in!`);
       }));
     }
 
     logout(){
       localStorage.removeItem('signedUser');
+      localStorage.removeItem('userJWT');
       localStorage.clear();
       sessionStorage.removeItem('signedUser');
+      sessionStorage.removeItem('userJWT');
       sessionStorage.clear();
       this.signedUserSubject.next(null);
     }

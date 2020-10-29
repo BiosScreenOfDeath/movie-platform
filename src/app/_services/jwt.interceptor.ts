@@ -18,11 +18,22 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     
-    console.log("HEADER: "+this.authenticate.apiKey);
+    //console.log("HEADER: "+this.authenticate.apiKey);
+    if(localStorage.getItem("on") == "1"){
+      this.authenticate.keepMeLoggedIn = true;
+      console.log("Locally stored values ON@JWT.");
+   } else {
+      this.authenticate.keepMeLoggedIn = false;
+      console.log("Session stored values ON@JWT.");
+   }
+    this.authenticate.toggleStorage();
+
+    console.log("HEADER: "+this.authenticate.userJWTValue);
 
     request = request.clone({
       setHeaders: {
-        token: `${this.authenticate.apiKey}`,
+        //token: `${this.authenticate.apiKey}`,
+        token: `${this.authenticate.userJWTValue}`,
       }
     });
 

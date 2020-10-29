@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Movie } from 'src/app/_models/movie';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 
@@ -52,14 +53,14 @@ export class AllMoviesComponent implements OnInit {
   }
 
   displayMovies(){
-    this.authenticate.getMovies()
+    return this.authenticate.getMovies()
     .subscribe(movies => {
       this.movieList = new BehaviorSubject<Movie[]>(movies);
     });
   }
 
   searchMovie(title: string){
-    console.log(title);
+    return title;
   }
 
   ngOnInit(): void {
@@ -69,6 +70,7 @@ export class AllMoviesComponent implements OnInit {
       addMovieDate: ['', Validators.required]
     });
 
+    console.log("Displaying movies...");
     this.displayMovies();
   }
 }

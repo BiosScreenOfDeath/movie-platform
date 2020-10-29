@@ -17,13 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authenticate: AuthenticationService,
     private router: Router) {
-      localStorage.clear();
+    
       if(this.authenticate.signedUserValue){
         this.router.navigate(['/home']);
         console.log("Sending user @ home.");
       }
       this.authenticate.keepMeLoggedIn = false;
-      //this.authenticate.logout();
       //console.log("Current user: "+this.authenticate.signedUserValue.username);
     }
 
@@ -55,7 +54,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           console.log("Logging in as "+this.authenticate.signedUserValue.username);
-          this.authenticate.toggleStorage();
+          console.log("JWT: "+this.authenticate.userJWTValue);
           this.router.navigate(['/home']);
           console.log("Initializing home!");
         },
