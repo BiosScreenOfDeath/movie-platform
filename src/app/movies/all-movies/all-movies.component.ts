@@ -1,6 +1,6 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Movie } from 'src/app/_models/movie';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -23,12 +23,32 @@ export class AllMoviesComponent implements OnInit {
 
   constructor(
     private authenticate: AuthenticationService,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder,
+    private router: Router) {}
+
+  
+  deleteMovie(id: string){
+    this.authenticate.deleteMovie(id)
+    .subscribe(data => {
+      this.displayMovies();
+    });
+  }
+
+  movieDetails(movie: Movie){
+    this.router.navigate(['movie-details', movie]);
+  }
+
+  addFavorite(title: string, titleId: string){
+    console.log(`Adding ${title}(id: ${titleId}) to favorites.`);
+    this.authenticate.addFavoriteMovie(titleId);
+  }
 
   addEntry(title: string, description: string, date: string){
     console.log("Adding movie:"+title);
-
-    this.authenticate.addMovie(title, description, date);
+    this.authenticate.addMovie(title, description, date)
+    .subscribe(movie => {
+      this.displayMovies();
+    });;
   }
 
   displayMovies(){
@@ -51,5 +71,4 @@ export class AllMoviesComponent implements OnInit {
 
     this.displayMovies();
   }
-
 }

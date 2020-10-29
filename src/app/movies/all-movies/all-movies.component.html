@@ -19,6 +19,8 @@
 
 <ul *ngIf="this.movieList">
     <li *ngFor="let movie of this.movieList.value">
-        {{movie.title}} &nbsp; {{movie.description}} &nbsp; {{movie.dateReleased}} 
+        <a (click)="movieDetails(movie)">{{movie.title}} &nbsp; {{movie.dateReleased}}</a> 
+        <button (click)="addFavorite(movie.title, movie.id)">Add to favorites</button>
+        <button (click)="deleteMovie(movie.id)">Delete</button>
     </li>
 </ul>

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { FavoriteMovie } from '../_models/favorite-movie';
 
 @Injectable({
   providedIn: 'root'
@@ -122,12 +123,34 @@ export class AuthenticationService {
         "title": title,
         "description": description,
         "dateReleased": new DatePipe('en').transform(date, 'yyyy-MM-ddTHH:mm:ssZ')
-      })
-      .subscribe(movie => console.log("POSTed movie: "+movie.title));
+      });
     }
 
     getMovies(){
-      console.log("Attempting to get all movies.")
+      console.log("Attempting to get all movies.");
       return this.http.get<any>(`${environment.config.api}/movies`);
+    }
+
+    addFavoriteMovie(titleId: string){
+      console.log("Attempting to POST favorite movie.");
+      return this.http.post<any>(`${environment.config.api}/users/favorites`, {
+        "movieId": titleId
+      })
+      .subscribe();
+    }
+
+    removeFavoriteMovie(titleId: string){
+      console.log("Attempting to DELETE favorite movie.");
+      return this.http.delete<any>(`${environment.config.api}/users/favorites/${titleId}`);
+    }
+
+    getFavoriteMovies(){
+      console.log("Attempting to get all favorites.");
+      return this.http.get<any>(`${environment.config.api}/users/favorites`);
+    }
+
+    deleteMovie(id: string){
+      console.log("Attempting to DELETE movie.");
+      return this.http.delete<any>(`${environment.config.api}/movies/${id}`);
     }
 }

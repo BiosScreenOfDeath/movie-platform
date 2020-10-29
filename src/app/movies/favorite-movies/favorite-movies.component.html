@@ -1,1 +1,10 @@
-<p>favorite-movies works!</p>
+<h2>Favorite movies list</h2>
+<br>
+
+<ul *ngIf='favoriteMovieList'>
+    <li *ngFor='let movie of favoriteMovieList.value'>
+        <a (click)="movieDetails(movie)">{{movie.title}}</a>
+    <button (click)="removeFromFavorites(movie.title, movie.favoriteId)">Remove</button>
+    </li>
+</ul>
+

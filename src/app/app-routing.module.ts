@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AllMoviesComponent } from './movies/all-movies/all-movies.component';
 import { FavoriteMoviesComponent } from './movies/favorite-movies/favorite-movies.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'edit', component: EditComponent},
   { path: 'all-movies', component: AllMoviesComponent},
   { path: 'favorite-movies', component: FavoriteMoviesComponent},
+  { path: 'movie-details', component: MovieDetailsComponent},
   { path: '**', redirectTo: '' }
 ];
 
