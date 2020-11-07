@@ -12,6 +12,7 @@ import { BackendInterceptorInterceptor } from './_services/backend-interceptor.i
 import { EditComponent } from './edit/edit.component';
 import { JwtInterceptor } from './_services/jwt.interceptor';
 import { MoviesModule } from './movies/movies.module';
+import { ErrorHandlingInterceptor } from './_services/error-handling.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MoviesModule } from './movies/movies.module';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BackendInterceptorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

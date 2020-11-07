@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authenticate: AuthenticationService) { }
 
+  // Sets up the registration form,
+  // along with its restrictions.
   ngOnInit(): void {
 
     this.registerForm = this.formBuilder.group({
@@ -33,6 +35,7 @@ export class RegisterComponent implements OnInit {
 
   get controls() {return this.registerForm.controls;}
 
+  // Adds user to the database.
   registerUser(){
     console.log("User: "+ this.registerForm.controls['firstName'].value);
 
@@ -45,9 +48,10 @@ export class RegisterComponent implements OnInit {
   }
 }
 
+// Validator for strong passwords.
 export function passwordCheckValidator(nameRe: RegExp): ValidatorFn{
   return (control: AbstractControl): {[key: string]: any} | null => {
       const passwordCheck = nameRe.test(control.value);
-      return !passwordCheck ? {passwordCheck: {value: control.value}} : null; 
+      return !passwordCheck ? {passwordCheck: {value: control.value}} : null;
   };
 };

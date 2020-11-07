@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Movie } from 'src/app/_models/movie';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,9 +20,17 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor(
     private authenticate: AuthenticationService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
+  // Displays the details of the movie sent by parameters
+  // from all-movies or favorite-movies.
   ngOnInit(): void {
+
+    if(!this.authenticate.signedUserValue){
+      this.router.navigate(['/login']);
+    }
+
     this.route.params.subscribe((params: Params) => {
       this.movie.title = params['title'];
       this.movie.description = params['description'];
@@ -29,5 +38,4 @@ export class MovieDetailsComponent implements OnInit {
       console.log("Movie selected: "+params['title']);
     });
   }
-
 }

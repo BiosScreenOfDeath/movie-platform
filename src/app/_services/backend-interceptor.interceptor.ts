@@ -25,11 +25,12 @@ export class BackendInterceptorInterceptor implements HttpInterceptor {
     });
   }
 
+  // Interceptor used for testing purposes.
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
     const { url, method } = request;
-    
+
     console.log("Initializing interceptor.")
 
     switch(true){

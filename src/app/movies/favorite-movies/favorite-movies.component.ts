@@ -13,15 +13,17 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 export class FavoriteMoviesComponent implements OnInit {
 
   favoriteMovieList: BehaviorSubject<FavoriteMovie[]>;
-  
+
   constructor(
     private authenticate: AuthenticationService,
     private router: Router) { }
 
+  // Redirects to movie's details.
   movieDetails(movie: Movie){
     this.router.navigate(['movie-details', movie]);
   }
 
+  // Deletes movie from user's favorites.
   removeFromFavorites(title: string, favoriteId: string){
     console.log(`Removing ${title}(favoriteId: ${favoriteId}) from favorites.`);
     this.authenticate.removeFavoriteMovie(favoriteId)
@@ -32,6 +34,7 @@ export class FavoriteMoviesComponent implements OnInit {
     console.log("Refreshing list.");
   }
 
+  // Gets all favorites from server.
   displayFavorites(){
     this.authenticate.getFavoriteMovies()
     .subscribe(favorites => {
@@ -39,7 +42,13 @@ export class FavoriteMoviesComponent implements OnInit {
     });
   }
 
+  // Ensures proper access and displays user's favorites.
   ngOnInit(): void {
+
+    if(!this.authenticate.signedUserValue){
+      this.router.navigate(['/login']);
+    }
+
     this.displayFavorites();
   }
 }

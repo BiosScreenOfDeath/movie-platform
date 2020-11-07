@@ -12,8 +12,15 @@ export class HomeComponent implements OnInit {
 
   homeUser: User;
 
+  // Sets the user to the one logged in
+  // to display the greeting message.
   constructor(private router: Router,
     private authenticate: AuthenticationService) {
+
+      if(!this.authenticate.signedUserValue){
+        this.router.navigate(['/login']);
+      }
+
       if(localStorage.getItem("on") == "1"){
          this.authenticate.keepMeLoggedIn = true;
          console.log("Locally stored values ON@home.");

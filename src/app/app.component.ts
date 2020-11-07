@@ -12,10 +12,11 @@ export class AppComponent{
   title = 'angular-academy-movie-platform';
   signedUser: User;
 
+  // Gets user data from the proper storage.
   constructor(
     private router: Router,
     private authenticate: AuthenticationService){
-    
+
     if(localStorage.getItem("on") == "1"){
       this.authenticate.keepMeLoggedIn = true;
       console.log("Locally stored values ON@app.");
@@ -36,26 +37,31 @@ export class AppComponent{
     });
   }
 
+  // Removes all user logged data.
   logout(){
     this.authenticate.logout();
     this.router.navigate(['/login']);
     this.signedUser = null;
   }
 
+  // Redirects user at home.
   goHome(){
     this.router.navigate(['/home']);
   }
 
+  // Redirects user to the edit page.
   userOptions(){
     console.log("Accessing Edit page.");
     this.router.navigate(['/edit']);
   }
 
+  // Redirects user to all movies page.
   showMovies(){
     console.log("Entering All Movies.");
     this.router.navigate(['/all-movies']);
   }
 
+  // Redirects user to favorites.
   showFavorites(){
     console.log("Entering Favorite Movies.");
     this.router.navigate(['/favorite-movies']);

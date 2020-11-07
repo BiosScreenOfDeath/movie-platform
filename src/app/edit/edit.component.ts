@@ -19,12 +19,19 @@ export class EditComponent implements OnInit {
     lastname?: string,
     username?: string,
     password?: string
-  };//BehaviorSubject<User>; 
+  };//BehaviorSubject<User>;
 
+  // Ensures no illegitimate access occurs,
+  // sets up the user's editing form.
   constructor(
     private formBuilder: FormBuilder,
     private authenticate: AuthenticationService,
     private router: Router) {
+
+    if(!this.authenticate.signedUserValue){
+      this.router.navigate(['/login']);
+    }
+
     console.log("Setting edit form.")
     this.resetForm = this.formBuilder.group({
       resetFirstName: [''],
@@ -39,11 +46,14 @@ export class EditComponent implements OnInit {
     });
   }
 
+  // Redirects to home.
   goHome(){
     this.userUpdated = false
     this.router.navigate(['/home']);
   }
 
+  // Updates the user's data depending
+  // on the field they fill.
   userEdit(){
     if(!this.passwordMatch()){
       console.log("Input passwords don't match.");
@@ -82,11 +92,13 @@ export class EditComponent implements OnInit {
     this.userUpdated = true;
   }
 
+  // Checks the 2 password fields.
   passwordMatch(){
     return (this.resetForm.controls.resetPassword.value ==
     this.resetForm.controls.resetConfirmPassword.value);
   }
 
+  // Shows the values of the form's fields.
   displaySubmittedData(){
     this.authenticate.showOptions();
     if(this.passwordMatch()) {console.log("Passwords match!");}
@@ -100,9 +112,10 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {}
 }
 
+// Validator used to ensure the input of a good password.
 export function passwordCheckValidator(nameRe: RegExp): ValidatorFn{
   return (control: AbstractControl): {[key: string]: any} | null => {
       const passwordCheck = nameRe.test(control.value);
-      return !passwordCheck ? {passwordCheck: {value: control.value}} : null; 
+      return !passwordCheck ? {passwordCheck: {value: control.value}} : null;
   };
 };

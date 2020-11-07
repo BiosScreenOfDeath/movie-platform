@@ -13,11 +13,12 @@ export class JwtInterceptor implements HttpInterceptor {
 
   constructor(private authenticate: AuthenticationService) {}
 
+  // Interceptor used for accessing various requests with the JWT token.
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    
+
     //console.log("HEADER: "+this.authenticate.apiKey);
     if(localStorage.getItem("on") == "1"){
       this.authenticate.keepMeLoggedIn = true;

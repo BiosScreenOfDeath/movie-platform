@@ -18,6 +18,8 @@ export class AuthenticationService {
   private toggleOptions = false;
   public apiKey: string;
 
+
+  // Securing the user is kept logged in if they checked the option to.
   constructor(private http: HttpClient) {
     if(localStorage.getItem('on') == "1"){
     this.keepMeLoggedIn = true;}
@@ -32,7 +34,8 @@ export class AuthenticationService {
     return this.userJWTSubject.value;
   }
 
-  //Optimize a bit 
+  // Selection of credential storage based on the user's selection
+  // (keep them logged in / not)
   toggleStorage(){
     if(this.keepMeLoggedIn){
       console.log("Storage set for Local login!");
@@ -63,9 +66,10 @@ export class AuthenticationService {
     this.userJWT$ = this.userJWTSubject.asObservable();
   }
 
-  register(firstName: string, 
-    lastName: string, 
-    username: string, 
+  // Sending the data to the API to store the new user.
+  register(firstName: string,
+    lastName: string,
+    username: string,
     password: string){
       console.log("Registering user: "+username);
       return this.http.post<User>(`${environment.config.api}/users`, {
@@ -73,11 +77,12 @@ export class AuthenticationService {
         "lastname": lastName,
         "username": username,
         "password": password
-      }).subscribe(/*data => {console.log("User "+data+" registered!")}*/);
+      }).subscribe();
     }
 
+    // Enters the user to the API as the currently signed user.
     login(username: string, password: string){
-      //console.log("Signing in user: "+username);
+      console.log("Signing in user: "+username);
       return this.http.post<any>(`${environment.config.api}/users/signin/`, {
         "username": username,
         "password": password
@@ -86,7 +91,7 @@ export class AuthenticationService {
         this.apiKey = user.jwt;
         if(this.keepMeLoggedIn == true){
           localStorage.setItem('signedUser', JSON.stringify(user.user));
-          localStorage.setItem('userJWT', JSON.stringify(user.jwt));  
+          localStorage.setItem('userJWT', JSON.stringify(user.jwt));
         } else {
           sessionStorage.setItem('signedUser', JSON.stringify(user.user));
           sessionStorage.setItem('userJWT', JSON.stringify(user.jwt));
@@ -99,6 +104,7 @@ export class AuthenticationService {
       }));
     }
 
+    // Clears out all data regardless of user's selection.
     logout(){
       localStorage.removeItem('signedUser');
       localStorage.removeItem('userJWT');
@@ -109,6 +115,7 @@ export class AuthenticationService {
       this.signedUserSubject.next(null);
     }
 
+    // Enables the option menu for the user to access.
     showOptions(){
       this.toggleOptions = !this.toggleOptions;
       console.log("User options tog, "+this.toggleOptions);
@@ -116,11 +123,14 @@ export class AuthenticationService {
 
 
     // ADD THE HEADERS RIGHT, GET THE DATA, GET ROLLING
+
+    // Gets the user's information for display and/or processing.
     userInfo(){
       console.log("Attempting to get user info.")
       return this.http.get<any>(`${environment.config.api}/users/details`);
     }
 
+    // Updates the provided fields of the user.
     userEdit(user: any){
       console.log("@userEdit - username: "+user.username);
       console.log("Attempting to get user info.")
@@ -133,6 +143,7 @@ export class AuthenticationService {
       .subscribe(data => console.log(data));
     }
 
+    // Stores to the database the movie entered.
     addMovie(title: string, description: string, date: string){
       console.log(`POSTing ${title}/${description}/${date}`)
       return this.http.post<any>(`${environment.config.api}/movies`, {
@@ -142,11 +153,13 @@ export class AuthenticationService {
       });
     }
 
+    // Retrieves all movies in the database.
     getMovies(){
       console.log("Attempting to get all movies.");
       return this.http.get<any>(`${environment.config.api}/movies`);
     }
 
+    // Stores a movie to the favorites of a user.
     addFavoriteMovie(titleId: string){
       console.log("Attempting to POST favorite movie.");
       return this.http.post<any>(`${environment.config.api}/users/favorites`, {
@@ -155,16 +168,19 @@ export class AuthenticationService {
       .subscribe();
     }
 
+    // Deletes a movie from the list of favorites.
     removeFavoriteMovie(titleId: string){
       console.log("Attempting to DELETE favorite movie.");
       return this.http.delete<any>(`${environment.config.api}/users/favorites/${titleId}`);
     }
 
+    // Retrieves all favorites from the database.
     getFavoriteMovies(){
       console.log("Attempting to get all favorites.");
       return this.http.get<any>(`${environment.config.api}/users/favorites`);
     }
 
+    // Deletes a specific movie from the database.
     deleteMovie(id: string){
       console.log("Attempting to DELETE movie.");
       return this.http.delete<any>(`${environment.config.api}/movies/${id}`);

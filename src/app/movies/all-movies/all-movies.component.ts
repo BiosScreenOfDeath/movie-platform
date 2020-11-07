@@ -16,7 +16,7 @@ export class AllMoviesComponent implements OnInit {
   movieList: BehaviorSubject<Movie[]>;
   addMovieForm: FormGroup;
 
-  @ViewChild('addMovie') 
+  @ViewChild('addMovie')
   addMovie: ElementRef;
 
   @ViewChild('searchTitle')
@@ -27,7 +27,8 @@ export class AllMoviesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router) {}
 
-  
+
+  // Deletes movie via id.
   deleteMovie(id: string){
     this.authenticate.deleteMovie(id)
     .subscribe(data => {
@@ -35,15 +36,18 @@ export class AllMoviesComponent implements OnInit {
     });
   }
 
+  // Redirects to the details of the movie.
   movieDetails(movie: Movie){
     this.router.navigate(['movie-details', movie]);
   }
 
+  // Movie is added to the user's favorites.
   addFavorite(title: string, titleId: string){
     console.log(`Adding ${title}(id: ${titleId}) to favorites.`);
     this.authenticate.addFavoriteMovie(titleId);
   }
 
+  // Movie is added to the database.
   addEntry(title: string, description: string, date: string){
     console.log("Adding movie:"+title);
     this.authenticate.addMovie(title, description, date)
@@ -52,6 +56,7 @@ export class AllMoviesComponent implements OnInit {
     });;
   }
 
+  // Gets all movies from the database.
   displayMovies(){
     return this.authenticate.getMovies()
     .subscribe(movies => {
@@ -59,11 +64,20 @@ export class AllMoviesComponent implements OnInit {
     });
   }
 
+  // Returns the search value.
   searchMovie(title: string){
     return title;
   }
 
+  // Sets up the form,
+  // ensures no-unauthorized acess,
+  // displays all movies.
   ngOnInit(): void {
+
+    if(!this.authenticate.signedUserValue){
+      this.router.navigate(['/login']);
+    }
+
     this.addMovieForm = this.formBuilder.group({
       addMovieTitle: ['', Validators.required],
       addMovieDescription: ['', Validators.required],
