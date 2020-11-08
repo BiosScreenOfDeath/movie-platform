@@ -1,5 +1,5 @@
 <nav  class="navbar navbar-expand navbar-dark bg-dark" *ngIf="signedUser">
-    <div class="navbar-nav">
+    <div class="navbar-nav order-1">
         <a class="nav-item nav-link" style="cursor: pointer;" (click)="showMovies()" >All Movies</a>
         <a class="nav-item nav-link" style="cursor: pointer;" (click)="showFavorites()" >Favorites</a>
         <a class="nav-item nav-link" style="cursor: pointer;" (click)="goHome()">Home</a>
@@ -7,7 +7,10 @@
         <ul *ngIf="this.authenticate.toggleOptions">
             <li class="nav-item nav-link" style="cursor: pointer;"><a (click)="logout()">Logout</a></li>
             <li class="nav-item nav-link" style="cursor: pointer;"><a (click)="userOptions()">Options</a></li>
-        </ul>    
+        </ul>   
+    </div>
+    <div class="navbar-nav ml-auto order-3">
+        <a class="navbar-brand navbar-right" style="color: cyan;">MOVIECAVE cinema</a>
     </div>
 </nav> 
 
