@@ -28,10 +28,6 @@ export class EditComponent implements OnInit {
     private authenticate: AuthenticationService,
     private router: Router) {
 
-    if(!this.authenticate.signedUserValue){
-      this.router.navigate(['/login']);
-    }
-
     console.log("Setting edit form.")
     this.resetForm = this.formBuilder.group({
       resetFirstName: [''],

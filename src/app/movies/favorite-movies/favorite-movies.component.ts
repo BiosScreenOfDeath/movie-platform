@@ -43,12 +43,5 @@ export class FavoriteMoviesComponent implements OnInit {
   }
 
   // Ensures proper access and displays user's favorites.
-  ngOnInit(): void {
-
-    if(!this.authenticate.signedUserValue){
-      this.router.navigate(['/login']);
-    }
-
-    this.displayFavorites();
-  }
+  ngOnInit(): void { this.displayFavorites(); }
 }

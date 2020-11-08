@@ -74,10 +74,6 @@ export class AllMoviesComponent implements OnInit {
   // displays all movies.
   ngOnInit(): void {
 
-    if(!this.authenticate.signedUserValue){
-      this.router.navigate(['/login']);
-    }
-
     this.addMovieForm = this.formBuilder.group({
       addMovieTitle: ['', Validators.required],
       addMovieDescription: ['', Validators.required],

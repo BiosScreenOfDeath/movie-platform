@@ -26,11 +26,6 @@ export class MovieDetailsComponent implements OnInit {
   // Displays the details of the movie sent by parameters
   // from all-movies or favorite-movies.
   ngOnInit(): void {
-
-    if(!this.authenticate.signedUserValue){
-      this.router.navigate(['/login']);
-    }
-
     this.route.params.subscribe((params: Params) => {
       this.movie.title = params['title'];
       this.movie.description = params['description'];
