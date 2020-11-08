@@ -77,7 +77,7 @@ export class AuthenticationService {
         "lastname": lastName,
         "username": username,
         "password": password
-      }).subscribe();
+      });
     }
 
     // Enters the user to the API as the currently signed user.
@@ -139,8 +139,7 @@ export class AuthenticationService {
         "lastname": user.lastname,
         "username": user.username,
         "password": user.password
-      })
-      .subscribe(data => console.log(data));
+      });
     }
 
     // Stores to the database the movie entered.
@@ -164,8 +163,7 @@ export class AuthenticationService {
       console.log("Attempting to POST favorite movie.");
       return this.http.post<any>(`${environment.config.api}/users/favorites`, {
         "movieId": titleId
-      })
-      .subscribe();
+      });
     }
 
     // Deletes a movie from the list of favorites.

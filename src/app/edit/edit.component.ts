@@ -81,7 +81,7 @@ export class EditComponent implements OnInit {
 
         this.userToEdit/*.value*/.password = this.resetForm.controls.resetConfirmPassword.value.trim();
 
-    this.authenticate.userEdit(this.userToEdit/*.value*/);
+    this.authenticate.userEdit(this.userToEdit/*.value*/).subscribe();
       }
     );
     console.log("Retrieved user info.");

@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
       this.controls.lastName.value,
       this.controls.username.value,
       this.controls.password.value
-    );
+    ).subscribe();
   }
 }
 

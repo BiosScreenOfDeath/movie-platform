@@ -44,7 +44,7 @@ export class AllMoviesComponent implements OnInit {
   // Movie is added to the user's favorites.
   addFavorite(title: string, titleId: string){
     console.log(`Adding ${title}(id: ${titleId}) to favorites.`);
-    this.authenticate.addFavoriteMovie(titleId);
+    this.authenticate.addFavoriteMovie(titleId).subscribe();
   }
 
   // Movie is added to the database.
