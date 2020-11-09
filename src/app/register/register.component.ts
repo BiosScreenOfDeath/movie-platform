@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private authenticate: AuthenticationService) { }
+    private authenticate: AuthenticationService,
+    private router: Router) { }
 
   // Sets up the registration form,
   // along with its restrictions.
@@ -35,6 +37,10 @@ export class RegisterComponent implements OnInit {
 
   get controls() {return this.registerForm.controls;}
 
+  userLogin(){
+    this.router.navigate(['/login']);
+  }
+
   // Adds user to the database.
   registerUser(){
     console.log("User: "+ this.registerForm.controls['firstName'].value);
@@ -45,6 +51,8 @@ export class RegisterComponent implements OnInit {
       this.controls.username.value,
       this.controls.password.value
     ).subscribe();
+
+    this.router.navigate(['/login']);
   }
 }
 

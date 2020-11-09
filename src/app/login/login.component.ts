@@ -26,6 +26,12 @@ export class LoginComponent implements OnInit {
       //console.log("Current user: "+this.authenticate.signedUserValue.username);
     }
 
+
+  registerUser(){
+    console.log("Redirecting to register a new user!");
+    this.router.navigate(['/register']);
+  }
+  
   ngOnInit(): void {
 
     this.loginForm = this.formBuilder.group({
@@ -57,6 +63,7 @@ export class LoginComponent implements OnInit {
           console.log("JWT: "+this.authenticate.userJWTValue);
           this.router.navigate(['/home']);
           console.log("Initializing home!");
+          window.location.reload();
         },
         error => this.error = error
       );

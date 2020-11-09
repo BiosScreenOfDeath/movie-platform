@@ -1,0 +1,7 @@
+.background {
+    height: 100vh;
+    width: 100%;
+    background: url('../../assets/cave.jpg') no-repeat;
+    background-size: cover;
+    color: white;
+  }

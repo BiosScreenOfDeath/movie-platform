@@ -1,26 +1,23 @@
-<p>Sign up</p>
+<div class='background' style="text-align: center;">
+<h2 style="color: rgb(44, 230, 44);">Sign up</h2>
 
 <form [formGroup]="registerForm">
-    <label>First name</label>
-    <input class="form-control" type='text' formControlName='firstName' >
+    <input type='text' formControlName='firstName' placeholder='First name' >
     <br>
 
-    <label>Last name</label>
-    <input class="form-control" type='text' formControlName='lastName' >
+    <input type='text' formControlName='lastName' placeholder='Last name' >
     <br>
 
-    <label>Username</label>
-    <input class="form-control" type='text' formControlName='username' >
+    <input type='text' formControlName='username' placeholder='Username'>
     <br>
 
-    <label>Password</label>
-    <input class="form-control" type='password' formControlName='password' >
+    <input type='password' formControlName='password' placeholder='Password'>
     <br>
 
-    <label>Confirm password</label>
-    <input class="form-control" type='password' formControlName='password' >
+    <input type='password' formControlName='password' placeholder='Confirm password'>
     <br>
 
-    <button type="submit" [disabled]="!registerForm.valid" (click)="registerUser()" routerLink="/login">Register</button>
-    <button routerLink="/login">Back</button>
+    <button type="submit" [disabled]="!registerForm.valid" (click)="registerUser()" >Register</button>
+    <button (click)="userLogin()">Back</button>
 </form>
+</div>
