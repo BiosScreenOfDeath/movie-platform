@@ -1,24 +1,26 @@
-<p>Reset user data</p>
+<div class='background' style='text-align: center;'>
+<br><br>
+<h2>Reset user data</h2>
 
 <form [formGroup]="resetForm">
     <label>First name</label>
-    <input class="form-control" type='text' formControlName='resetFirstName' >
+    <input type='text' formControlName='resetFirstName' >
     <br>
 
     <label>Last name</label>
-    <input class="form-control" type='text' formControlName='resetLastName' >
+    <input type='text' formControlName='resetLastName' >
     <br>
 
     <label>Username</label>
-    <input class="form-control" type='text' formControlName='resetUsername' >
+    <input type='text' formControlName='resetUsername' >
     <br>
 
     <label>Password</label>
-    <input class="form-control" type='password' formControlName='resetPassword' >
+    <input type='password' formControlName='resetPassword' >
     <br>
 
     <label>Confirm password</label>
-    <input class="form-control" type='password' formControlName='resetConfirmPassword' >
+    <input type='password' formControlName='resetConfirmPassword' >
     <br>
 
     <button type="submit" [disabled]="!passwordMatch()" (click)='userEdit()'>Update info</button>

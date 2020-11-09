@@ -1,3 +1,5 @@
+<div class='background' style='text-align: center;'>
+<br><br>
 <h2>Movie list</h2>
 <br>
 
@@ -21,8 +23,9 @@
     <li style="list-style-type:none" *ngFor="let movie of this.movieList.value | filter:searchMovie(searchTitle.value)">
         <div *ngIf="movie.title.includes(searchMovie(searchTitle.value))">
         <a (click)="movieDetails(movie)">{{movie.title}} &nbsp; {{movie.dateReleased}}</a> 
-        <button (click)="addFavorite(movie.title, movie.id)">Add to favorites</button>
-        <button (click)="deleteMovie(movie.id)">Delete</button>
+        <button class="btn" style="color: #0cf03d;" (click)="addFavorite(movie.title, movie.id)">Add to favorites</button>
+        <button class="btn" style="color: yellow;" (click)="deleteMovie(movie.id)">[-]</button>
         </div>
     </li>
 </ul>
+</div>

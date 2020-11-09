@@ -1,10 +1,8 @@
 <!-- <button><a href="http://localhost:4242/api-docs/#/">API DOCS</a></button> -->
 
-<body style="background-image:url('assets/cave.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;">
-<div class="container d-flex justify-content-center h-100 card">
-<form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<body class="background">
+<div class="d-flex justify-content-center">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
     <p class='card-header' style='color: aqua;'>MOVIECAVE cinema</p>
 
