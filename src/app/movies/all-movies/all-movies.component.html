@@ -8,7 +8,7 @@
     <input type="text" #addMovieTitle formControlName="addMovieTitle" placeholder="Enter movie title" required>
     <input type="text" #addMovieDescription formControlName="addMovieDescription" placeholder="Enter movie description" required>
     <input type="text" #addMovieDate formControlName="addMovieDate" placeholder="Enter movie's release" required>
-    <button 
+    <button class="btn" style="color:white;"
     [disabled]="!addMovieForm.valid"
     (click)="addEntry(addMovieTitle.value,addMovieDescription.value,addMovieDate.value)">Add</button>
     <br>
@@ -16,13 +16,13 @@
 
 <label>Movie search &nbsp;</label>
 <input type="text" #searchTitle placeholder="Search movie">
-<button (click)="searchMovie(searchTitle.value)">Search</button>
+<button class="btn" style="color:white;" (click)="searchMovie(searchTitle.value)">Search</button>
 <br>
 
 <ul *ngIf="this.movieList">
     <li style="list-style-type:none" *ngFor="let movie of this.movieList.value | filter:searchMovie(searchTitle.value)">
         <div *ngIf="movie.title.includes(searchMovie(searchTitle.value))">
-        <a (click)="movieDetails(movie)">{{movie.title}} &nbsp; {{movie.dateReleased}}</a> 
+        <a (click)="movieDetails(movie)">{{movie.title}} &nbsp; {{movie.dateReleased | date}}</a> 
         <button class="btn" style="color: #0cf03d;" (click)="addFavorite(movie.title, movie.id)">Add to favorites</button>
         <button class="btn" style="color: yellow;" (click)="deleteMovie(movie.id)">[-]</button>
         </div>

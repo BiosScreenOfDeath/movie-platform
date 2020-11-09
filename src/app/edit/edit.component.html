@@ -3,28 +3,23 @@
 <h2>Reset user data</h2>
 
 <form [formGroup]="resetForm">
-    <label>First name</label>
-    <input type='text' formControlName='resetFirstName' >
+    <input type='text' formControlName='resetFirstName' placeholder="First name">
     <br>
 
-    <label>Last name</label>
-    <input type='text' formControlName='resetLastName' >
+    <input type='text' formControlName='resetLastName' placeholder='Last name'>
     <br>
 
-    <label>Username</label>
-    <input type='text' formControlName='resetUsername' >
+    <input type='text' formControlName='resetUsername' placeholder='Username'>
     <br>
 
-    <label>Password</label>
-    <input type='password' formControlName='resetPassword' >
+    <input type='password' formControlName='resetPassword' placeholder='Password'>
     <br>
 
-    <label>Confirm password</label>
-    <input type='password' formControlName='resetConfirmPassword' >
+    <input type='password' formControlName='resetConfirmPassword' placeholder='Confirm password'>
     <br>
 
-    <button type="submit" [disabled]="!passwordMatch()" (click)='userEdit()'>Update info</button>
-    <button (click)="goHome()">Back</button>
+    <button class='btn' style='color: white;' type="submit" [disabled]="!passwordMatch()" (click)='userEdit()'>Update info</button>
+    <button class='btn' style='color: white;' (click)="goHome()">Back</button>
 
     <p *ngIf="!passwordMatch()">Password fields don't match.</p>
 
